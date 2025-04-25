@@ -1,20 +1,21 @@
-# Usa uma imagem oficial do Python como base
 FROM python:3.11-slim
 
-# Instala dependências de sistema necessárias
+# Instala dependências de sistema
 RUN apt-get update && apt-get install -y ffmpeg imagemagick
 
-# Cria um diretório para o app
+# Define diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos do projeto para o container
+# Copia os arquivos da aplicação
 COPY . .
 
-# Instala as dependências do Python
+# Instala dependências Python
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expõe a porta que o Flask usará
 EXPOSE 5000
 
-# Comando para rodar o app
+# Define comando de start
 CMD ["python", "app.py"]
+
